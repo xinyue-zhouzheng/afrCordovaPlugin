@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<script type="text/javascript" src="cordova.js"></script>
+		<script src="js/index.js"></script>
+		<script>app.initialize();</script>
+		
+		<title></title>
+	</head>
+	<body>
+	<button id="cameraBtn" style="display:none;">cameraButton</button>
+	<script src="jQuery-2.1.3.min.js"></script>
+	<script src="afrPlugin.js"></script>
+	<script src="md5.min.js"></script>
+	<script>
+		$(function(){
+			var curDate = new Date().toLocaleDateString();
+			var devKey = "53a0aad65cfea4f36496f9583471d9c9";	//捷通开发者devkey,必需
+			var sessionKey = md5(curDate + devKey);
+
+			AfrPlugin.init({
+				"appKey": "f05d54ac",	// 捷通开发者应用appkey,必填
+			    "requestDate": curDate,	// 当前日期，必填
+			    "sessionKey": sessionKey,	// 验证码，必填，生成规则为md5(curDate + devKey)
+			    "accountType": 1,		// 应用类型，1-JT试用账号，2-JT商用账号，默认为1
+			    "groupId": "my_afr_group"	// 注册的组号，必填
+			});
+
+			function cameraSuccess(imageData) {
+				console.log(this);
+				console.log(AfrPlugin);
+				
+				var result = AfrPlugin.recog(imageData);
+				console.log(result);
+				console.log(typeof("123"));
+				// 为了方便展示，将识别转化成字符串形式，实际返回的事xml对象
+				if (typeof(result) == "object"){
+					alert((new XMLSerializer()).serializeToString(result))
+				}else{
+					alert(result);
+				}
+				
+			};
+
+			function cameraError(message) {
+				alert("Failed because: " + message);
+			};
+
+			$("#cameraBtn").on("click", function(){
+		        navigator.camera.getPicture(cameraSuccess, cameraError, {
+		            destinationType: Camera.DestinationType.DATA_URL,
+		            encodingType: Camera.EncodingType.JPEG,
+		        });
+			})
+
+		})
+	
+
+	</script>
+	</body>
+</html>
