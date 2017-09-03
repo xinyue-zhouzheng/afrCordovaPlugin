@@ -17,15 +17,15 @@
 	<script>
 		$(function(){
 			var curDate = new Date().toLocaleDateString();
-			var devKey = "53a0aad65cfea4f36496f9583471d9c9";	//捷通开发者devkey,必需
+			var devKey = "";	//捷通开发者devkey,必需
 			var sessionKey = md5(curDate + devKey);
 
 			AfrPlugin.init({
-				"appKey": "f05d54ac",	// 捷通开发者应用appkey,必填
+				"appKey": "",	// 捷通开发者应用appkey,必填
 			    "requestDate": curDate,	// 当前日期，必填
 			    "sessionKey": sessionKey,	// 验证码，必填，生成规则为md5(curDate + devKey)
 			    "accountType": 1,		// 应用类型，1-JT试用账号，2-JT商用账号，默认为1
-			    "groupId": "my_afr_group"	// 注册的组号，必填
+			    "groupId": ""	// 注册的组号，必填
 			});
 
 			function cameraSuccess(imageData) {
