@@ -34,7 +34,6 @@
 				
 				var result = AfrPlugin.recog(imageData);
 				console.log(result);
-				console.log(typeof("123"));
 				// 为了方便展示，将识别转化成字符串形式，实际返回的事xml对象
 				if (typeof(result) == "object"){
 					alert((new XMLSerializer()).serializeToString(result))
